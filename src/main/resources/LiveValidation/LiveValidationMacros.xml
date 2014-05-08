@@ -39,6 +39,10 @@
   <syntaxId>xwiki/2.1</syntaxId>
   <hidden>true</hidden>
   <content>{{velocity output="false"}}
+#if ($xcontext.action != 'edit' &amp;&amp; $xcontext != 'inline')
+#set ($discard = $xwiki.jsfx.use('uicomponents/widgets/validation/livevalidation_prototype.js', true))
+#set ($discard = $xwiki.ssfx.use('uicomponents/widgets/validation/livevalidation.css', true))
+#end
 #macro(serializeObjectReference $objref)
     #set ($objname = $objref.getName())
     #set ($docref = $objref.getParent())

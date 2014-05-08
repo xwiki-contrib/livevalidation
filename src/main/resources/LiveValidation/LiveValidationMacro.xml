@@ -187,10 +187,6 @@ Add the following lines to MyApp.MyAppSheet.
 #else
     #set ($obj = $document.getObject($classname, $objnum))
 #end
-#if ($xcontext.action != 'edit' &amp;&amp; $xcontext != 'inline')
-    #set ($discard = $xwiki.jsfx.use('uicomponents/widgets/validation/livevalidation_prototype.js'))
-    #set ($discard = $xwiki.ssfx.use('uicomponents/widgets/validation/livevalidation.css'))
-#end
 {{html clean=false}}
 &lt;script type='text/javascript'&gt;
 document.observe('xwiki:dom:loaded', function() {
