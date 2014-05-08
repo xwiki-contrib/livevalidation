@@ -37,7 +37,8 @@
   <description>Wiki macros implementation of the LiveValidation javascript framework (http://livevalidation.com/documentation) to be used with validation specified in XWiki classes. </description>
   <properties>
     <xwiki.extension.features>livevalidation-macros</xwiki.extension.features>
-    <plateform.version>3.5.1</plateform.version>
+    <platform.version>3.5.1</platform.version>
+    <rendering.version>${platform.version}</rendering.version>
     <!-- Skip enforcer since 4.2 is not clean enought -->
     <xwiki.enforcer.skip>true</xwiki.enforcer.skip>
   </properties>
@@ -70,34 +71,52 @@
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-rendering-wikimacro-api</artifactId>
-      <version>${plateform.version}</version>
+      <version>${platform.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-oldcore</artifactId>
-      <version>${plateform.version}</version>
+      <version>${platform.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-query-manager</artifactId>
-      <version>${plateform.version}</version>
+      <version>${platform.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-model</artifactId>
-      <version>${plateform.version}</version>
+      <version>${platform.version}</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.xwiki.platform</groupId>
       <artifactId>xwiki-platform-skin-skinx</artifactId>
-      <version>${plateform.version}</version>
+      <version>${platform.version}</version>
       <scope>runtime</scope>
     </dependency>
- </dependencies>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-rendering-macro-velocity</artifactId>
+      <version>${platform.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.platform</groupId>
+      <artifactId>xwiki-platform-rendering-macro-include</artifactId>
+      <version>${platform.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.rendering</groupId>
+      <artifactId>xwiki-rendering-macro-html</artifactId>
+      <version>${rendering.version}</version>
+      <scope>runtime</scope>
+    </dependency>
+  </dependencies>
   <build>
     <pluginManagement>
       <plugins>
