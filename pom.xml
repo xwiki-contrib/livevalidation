@@ -32,7 +32,7 @@
   <groupId>org.xwiki.contrib.livevalidation</groupId>
   <artifactId>livevalidation-macros</artifactId>
   <name>Livevalidation Macros</name>
-  <version>1.2-SNAPSHOT</version>
+  <version>1.2</version>
   <packaging>xar</packaging>
   <description>Wiki macros implementation of the LiveValidation javascript framework (http://livevalidation.com/documentation) to be used with validation specified in XWiki classes. </description>
   <properties>
@@ -46,7 +46,7 @@
     <connection>scm:git:git://github.com/xwiki-contrib/livevalidation.git</connection>
     <developerConnection>scm:git:git@github.com:xwiki-contrib/livevalidation.git</developerConnection>
     <url>https://github.com/xwiki-contrib/livevalidation.git</url>
-    <tag>HEAD</tag>
+    <tag>livevalidation-macros-1.2</tag>
   </scm>
   <developers>
     <developer>
