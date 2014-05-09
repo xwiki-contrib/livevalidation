@@ -294,7 +294,7 @@ document.observe('xwiki:dom:loaded', function(){
       <description>Unique ID of the form html element that contains the validated field.</description>
     </property>
     <property>
-      <mandatory>O</mandatory>
+      <mandatory>0</mandatory>
     </property>
     <property>
       <name>form</name>
