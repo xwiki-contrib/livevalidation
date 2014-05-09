@@ -47,7 +47,7 @@ Validates a XObject property value using a custom remote XWiki document that sho
 {{livevalidationCustom form="formId" property="propertyReference" against="validationDocumentReference" args="an=additional&amp;query=string" failureMessage="A message to display when false is returned" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | against | Document reference of the document that will be AJAX requested to settle the validation.
 | args | Additional QueryString passed over to the requested document with the property reference and the field value.
@@ -57,7 +57,7 @@ Validates a XObject property value using a custom remote XWiki document that sho
 Add the following lines to MyApp.MyAppSheet.
 
 {{code language="none"}}
-{{livevalidationCustom form='inline' property='MyApp.MyAppClass[0].myprop' against='LiveValidation.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
+{{livevalidationCustom property='MyApp.MyAppClass[0].myprop' against='LiveValidation.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
 {{/code}}
 
 The ##LiveValidation.IsUniqueValidator## is also provided in this extension and check that the property value is unique compared to all instances of the same XClass.
@@ -288,13 +288,13 @@ document.observe('xwiki:dom:loaded', function(){
       </name>
     </class>
     <property>
-      <defaultValue/>
+      <defaultValue>inline</defaultValue>
     </property>
     <property>
       <description>Unique ID of the form html element that contains the validated field.</description>
     </property>
     <property>
-      <mandatory>1</mandatory>
+      <mandatory>O</mandatory>
     </property>
     <property>
       <name>form</name>

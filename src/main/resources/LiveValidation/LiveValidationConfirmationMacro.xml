@@ -49,7 +49,7 @@
 {{livevalidationConfirmation form="formId" property="propertyReference" match="fieldId" failureMessage="A message to display when validation fail" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | match | Identifier of the field that should match the property value.
 | failureMessage | Message to be used upon validation failure.
@@ -58,7 +58,7 @@
 Add an identified volatile confirmation field to the form and the following lines to MyApp.MyAppSheet.
 
 {{code language="none"}}
-{{livevalidationConfirmation form='inline' property='MyApp.MyAppClass[0].myprop' match='fieldId' failureMessage='This field should match myprop.' /}}
+{{livevalidationConfirmation property='MyApp.MyAppClass[0].myprop' match='fieldId' failureMessage='This field should match myprop.' /}}
 {{/code}}
  </content>
   <object>
@@ -275,13 +275,13 @@ document.observe('xwiki:dom:loaded', function(){
       </name>
     </class>
     <property>
-      <defaultValue/>
+      <defaultValue>inline</defaultValue>
     </property>
     <property>
       <description>Unique ID of the form html element that contains the validated field.</description>
     </property>
     <property>
-      <mandatory>1</mandatory>
+      <mandatory>0</mandatory>
     </property>
     <property>
       <name>form</name>

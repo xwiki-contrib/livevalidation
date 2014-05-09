@@ -49,14 +49,14 @@ This macro uses Validation.Format from the [[LiveValidation Javascript framwork&
 {{livevalidation form='formId' object='objectReference' /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that will be validated before submission.
+| form | Unique ID of the form html element that will be validated before submission (Optional, default to ##inline##).
 | object | [[Object reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HObjectReferences]] of the XObject to be validated.
 
 == Examples ==
 Add the following lines to MyApp.MyAppSheet.
 
 {{code language="none"}}
-{{livevalidation form='inline' object='MyApp.MyAppClass[0]' /}}
+{{livevalidation object='MyApp.MyAppClass[0]' /}}
 {{/code}}
 
   </content>
@@ -294,7 +294,7 @@ document.observe('xwiki:dom:loaded', function() {
       <description>Unique ID of the form html element that will be validated before submission.</description>
     </property>
     <property>
-      <mandatory>1</mandatory>
+      <mandatory>0</mandatory>
     </property>
     <property>
       <name>form</name>

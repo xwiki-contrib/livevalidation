@@ -75,7 +75,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidation form='formId' object='objectReference' /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that will be validated before submission.
+| form | Unique ID of the form html element that will be validated before submission (Optional, default to ##inline##).
 | object | [[Object reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HObjectReferences]] of the XObject to be validated.
 
 == ~{~{livevalidationConfirmation /~}~} ==
@@ -83,7 +83,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidationConfirmation form="formId" property="propertyReference" match="fieldId" failureMessage="A message to display when validation fail" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | match | Identifier of the field that should match the property value.
 | failureMessage | Message to be used upon validation failure.
@@ -93,7 +93,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidationCustom form="formId" property="propertyReference" against="validationDocumentReference" args="an=additional&amp;query=string" failureMessage="A message to display when false is returned" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | against | Document reference of the document that will be AJAX requested to settle the validation.
 | args | Additional QueryString passed over to the requested document with the property reference and the field value.
@@ -104,7 +104,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidationEmail form="formId" property="propertyReference" failureMessage="A message to display when validation fail" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | failureMessage | Message to be used upon validation failure.
 
@@ -113,7 +113,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidationFormat form="formId" property="propertyReference" pattern="/regex/" failureMessage="A message to display when validation fail" /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | pattern | A regular expression pattern in Javascript syntax.
 | failureMessage | Message to be used upon validation failure.
@@ -123,7 +123,7 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 {{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | failureMessage | Message to be used upon validation failure.
 
@@ -132,17 +132,17 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 Add the following lines to ##MyApp.MyAppSheet##:
 
 {{code language='none'}}
-{{livevalidation form='inline' object='MyApp.MyAppClass[0]' /}}
+{{livevalidation object='MyApp.MyAppClass[0]' /}}
 
-{{livevalidationConfirmation form='inline' property='MyApp.MyAppClass[0].myprop' match='fieldId' failureMessage='This field should match myprop.' /}}
+{{livevalidationConfirmation property='MyApp.MyAppClass[0].myprop' match='fieldId' failureMessage='This field should match myprop.' /}}
 
-{{livevalidationCustom form='inline' property='MyApp.MyAppClass[0].myprop' against='Code.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
+{{livevalidationCustom property='MyApp.MyAppClass[0].myprop' against='Code.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
 
-{{livevalidationEmail form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='Email format is invalid.' /}}
+{{livevalidationEmail property='MyApp.MyAppClass[0].myprop' failureMessage='Email format is invalid.' /}}
 
-{{livevalidationFormat form='inline' property='MyApp.MyAppClass[0].myprop' pattern='/^[A-Z]*$/' failureMessage='myprop must contain only uppercase characters.' /}}
+{{livevalidationFormat property='MyApp.MyAppClass[0].myprop' pattern='/^[A-Z]*$/' failureMessage='myprop must contain only uppercase characters.' /}}
 
-{{livevalidationPresence form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}√
+{{livevalidationPresence property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}√
 {{/code}}
   </content>
 </xwikidoc>

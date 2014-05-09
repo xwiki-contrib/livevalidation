@@ -47,14 +47,14 @@ Validates that XObject property value is present (ie. not null, undefined, or an
 {{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
 {{/code}}
 |= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
+| form | Unique ID of the form html element that contains the validated field (Optional, default to ##inline##).
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
 | failureMessage | Message to be used upon validation failure.
 
 == Examples ==
 Add the following lines to MyApp.MyAppSheet.
 {{code language="none"}}
-{{livevalidationPresence form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}
+{{livevalidationPresence property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}
 {{/code}}
 
   </content>
@@ -275,13 +275,13 @@ document.observe('xwiki:dom:loaded', function(){
       </name>
     </class>
     <property>
-      <defaultValue/>
+      <defaultValue>inline</defaultValue>
     </property>
     <property>
       <description>Unique ID of the form html element that contains the validated field.</description>
     </property>
     <property>
-      <mandatory>1</mandatory>
+      <mandatory>0</mandatory>
     </property>
     <property>
       <name>form</name>
