@@ -44,6 +44,7 @@
 == Macros ==
 
 |~{~{livevalidation /~}~}|Provides client-side live validation of a single XObject based on the validation expressions and messages defined in its XClass.
+|~{~{livevalidationConfirmation /~}~}|Validates that another field of the form match the value of an XObject property.
 |~{~{livevalidationCustom /~}~}|Validates a XObject property value using a custom remote XWiki document that should returns "true" when valid or "false" when not valid, based on the field value and the property reference.
 |~{~{livevalidationEmail /~}~}|Validates that XObject property value is a valid email address.
 |~{~{livevalidationFormat /~}~}|Validates that XObject property value against a regular expression.
@@ -54,13 +55,15 @@
 {{code language='none'}}
 {{livevalidation form='inline' object='objectReference' /}}
 
-{{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
+{{livevalidationConfirmation form="formId" property="propertyReference" match="fieldId" failureMessage="A message to display when validation fail" /}}
 
-{{livevalidationFormat form='formId' property='propertyReference' pattern='[A-Z]+' failureMessage='Only uppercase characters allowed.' /}}
+{{livevalidationCustom form='formId' property='propertyReference' against='validationDocumentReference' failureMessage='Invalid value.'/}}
 
 {{livevalidationEmail form='formId' property='propertyReference' failureMessage='Email format invalid.' /}}
 
-{{livevalidationCustom form='formId' property='propertyReference' against='validationDocumentReference' failureMessage='Invalid value.'/}}
+{{livevalidationFormat form='formId' property='propertyReference' pattern='[A-Z]+' failureMessage='Only uppercase characters allowed.' /}}
+
+{{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
 {{/code}}
 
 {{info}}
@@ -75,9 +78,30 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 | form | Unique ID of the form html element that will be validated before submission.
 | object | [[Object reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HObjectReferences]] of the XObject to be validated.
 
-== ~{~{livevalidationPresence /~}~} ==
+== ~{~{livevalidationConfirmation /~}~} ==
 {{code language="none"}}
-{{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
+{{livevalidationConfirmation form="formId" property="propertyReference" match="fieldId" failureMessage="A message to display when validation fail" /}}
+{{/code}}
+|= Param |= Description
+| form | Unique ID of the form html element that contains the validated field.
+| property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
+| match | Identifier of the field that should match the property value.
+| failureMessage | Message to be used upon validation failure.
+
+== ~{~{livevalidationCustom /~}~} ==
+{{code language="none"}}
+{{livevalidationCustom form="formId" property="propertyReference" against="validationDocumentReference" args="an=additional&amp;query=string" failureMessage="A message to display when false is returned" /}}
+{{/code}}
+|= Param |= Description
+| form | Unique ID of the form html element that contains the validated field.
+| property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
+| against | Document reference of the document that will be AJAX requested to settle the validation.
+| args | Additional QueryString passed over to the requested document with the property reference and the field value.
+| failureMessage | Message to be used upon validation failure.
+
+== ~{~{livevalidationEmail /~}~} ==
+{{code language="none"}}
+{{livevalidationEmail form="formId" property="propertyReference" failureMessage="A message to display when validation fail" /}}
 {{/code}}
 |= Param |= Description
 | form | Unique ID of the form html element that contains the validated field.
@@ -94,24 +118,13 @@ Either leave an empty space between macro calls to avoid inlining or put them al
 | pattern | A regular expression pattern in Javascript syntax.
 | failureMessage | Message to be used upon validation failure.
 
-== ~{~{livevalidationEmail /~}~} ==
+== ~{~{livevalidationPresence /~}~} ==
 {{code language="none"}}
-{{livevalidationEmail form="formId" property="propertyReference" failureMessage="A message to display when validation fail" /}}
+{{livevalidationPresence form='formId' property='propertyReference' failureMessage='Non empty value required.' /}}
 {{/code}}
 |= Param |= Description
 | form | Unique ID of the form html element that contains the validated field.
 | property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
-| failureMessage | Message to be used upon validation failure.
-
-== ~{~{livevalidationCustom /~}~} ==
-{{code language="none"}}
-{{livevalidationCustom form="formId" property="propertyReference" against="validationDocumentReference" args="an=additional&amp;query=string" failureMessage="A message to display when false is returned" /}}
-{{/code}}
-|= Param |= Description
-| form | Unique ID of the form html element that contains the validated field.
-| property | [[Property reference&gt;&gt;http://extensions.xwiki.org/xwiki/bin/view/Extension/Model+Module#HPropertyReferences]] of the field to be validated.
-| against | Document reference of the document that will be AJAX requested to settle the validation.
-| args | Additional QueryString passed over to the requested document with the property reference and the field value.
 | failureMessage | Message to be used upon validation failure.
 
 == Examples ==
@@ -121,13 +134,15 @@ Add the following lines to ##MyApp.MyAppSheet##:
 {{code language='none'}}
 {{livevalidation form='inline' object='MyApp.MyAppClass[0]' /}}
 
-{{livevalidationPresence form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}
+{{livevalidationConfirmation form='inline' property='MyApp.MyAppClass[0].myprop' match='fieldId' failureMessage='This field should match myprop.' /}}
 
-{{livevalidationFormat form='inline' property='MyApp.MyAppClass[0].myprop' pattern='/^[A-Z]*$/' failureMessage='myprop must contain only uppercase characters.' /}}
+{{livevalidationCustom form='inline' property='MyApp.MyAppClass[0].myprop' against='Code.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
 
 {{livevalidationEmail form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='Email format is invalid.' /}}
 
-{{livevalidationCustom form='inline' property='MyApp.MyAppClass[0].myprop' against='Code.IsUniqueValidator' failureMessage='myprop is required to be unique.' /}}
+{{livevalidationFormat form='inline' property='MyApp.MyAppClass[0].myprop' pattern='/^[A-Z]*$/' failureMessage='myprop must contain only uppercase characters.' /}}
+
+{{livevalidationPresence form='inline' property='MyApp.MyAppClass[0].myprop' failureMessage='myprop cannot be empty.' /}}√
 {{/code}}
   </content>
 </xwikidoc>
