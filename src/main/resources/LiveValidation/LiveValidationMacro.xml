@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <!--
  * See the NOTICE file distributed with this work for additional
  * information regarding copyright ownership.
@@ -177,45 +178,35 @@ Add the following lines to MyApp.MyAppSheet.
       <code>{{include reference='LiveValidation.LiveValidationMacros' /}}
 
 {{velocity}}
-#set ($discard = $xwiki.jsx.use('LiveValidation.LiveValidationMacros'))
-#set ($formId = "$!xcontext.macro.params.get('form')")
-#set ($objref = $services.model.resolveObject("$!xcontext.macro.params.get('object')", 'current'))
-#serializeObjectReference($objref)
-#set ($document = $xwiki.getDocument($docref))
-#if ($document.isNew())
-    #set ($obj = $document.getObject($classname, true))
+## Initialize ${docref}, ${classname} and ${objnum}
+#serializeObjectReference($services.model.resolveObject($xcontext.macro.params.get('object'), 'current'))
+## Get object
+#set ($validatedDoc = $xwiki.getDocument($docref))
+#if ($validatedDoc.isNew())
+    #set ($validatedObj = $validatedDoc.getObject($classname, true))
 #else
-    #set ($obj = $document.getObject($classname, $objnum))
+    #set ($validatedObj = $validatedDoc.getObject($classname, $objnum))
 #end
-{{html clean=false}}
+#if ($validatedObj)
+{{html}}
 &lt;script type='text/javascript'&gt;
 document.observe('xwiki:dom:loaded', function() {
-    var form = $("$formId");
-    #if ($obj)
-        #set ($class = $obj.xWikiClass)
-        #foreach ($propertyClass in $class.properties)
-            #if ("$!{propertyClass.getProperty('validationRegExp').value}" != '')
-                #set ($property = $obj.getProperty($propertyClass.getName()))
-                var element = $('${classname}_${obj.number}_${propertyClass.getName()}');
-                if (element) {
-                    if(element.readAttribute('type') == 'hidden') {
-                        element.writeAttribute('type', 'text');
-                        element.addClassName('hidden');
-                    }
-                    element.addClassName('xlivevalidation');
-                    var validator = LiveValidationForm.getLiveValidationInstance(form, element);
-                    validator.displayMessageWhenEmpty = true;
-                    validator.add( Validate.Format, {
-                        pattern: $!{propertyClass.getProperty('validationRegExp').value},
-                        failureMessage: "$!{escapetool.javascript($msg.get($propertyClass.getProperty('validationMessage').value))}"
-                    });
-                }
-            #end
+    var formEl = $("${escapetool.javascript($xcontext.macro.params.get('form'))}");
+    #foreach ($propertyClass in $validatedObj.xWikiClass.properties)
+        #set ($pattern = $!propertyClass.getProperty('validationRegExp').value)
+        #if ("$pattern" != '')
+            LiveValidationForm.addFormatValidation(
+                formEl,
+                $("${classname}_${obj.number}_${propertyClass.getName()}"),
+                $pattern,
+                "$!{escapetool.javascript($msg.get($propertyClass.getProperty('validationMessage').value))}"
+            );
         #end
     #end
 });
 &lt;/script&gt;
 {{/html}}
+#end
 {{/velocity}}</code>
     </property>
     <property>
